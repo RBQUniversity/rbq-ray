@@ -1,0 +1,116 @@
+﻿<Window x:Class="rbq_ray.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:rbq_ray"
+        mc:Ignorable="d"
+        Title="RBQray" Height="450" Width="800">
+
+    <DockPanel FocusManager.FocusedElement="{Binding ElementName=serverDataGrid}">
+        <Menu DockPanel.Dock="Top">
+            <MenuItem Header="节点">
+                <MenuItem Header="添加">
+                    <MenuItem x:Name="serverAddHttpMenuItem" Header="HTTP" Click="serverAddHttpMenuItem_Click"/>
+                    <MenuItem x:Name="serverAddSocksMenuItem" Header="Socks" Click="serverAddSocksMenuItem_Click"/>
+                    <Separator></Separator>
+                    <MenuItem x:Name="serverAddSsMenuItem" Header="Shadowsocks" Click="serverAddSsMenuItem_Click"/>
+                    <MenuItem x:Name="serverAddSs2022MenuItem" Header="Shadowsocks 2022" Click="serverAddSs2022MenuItem_Click"/>
+                    <MenuItem x:Name="serverAddVmessMenuItem" Header="VMess" Click="serverAddVmessMenuItem_Click"/>
+                    <MenuItem x:Name="serverAddVlessMenuItem" Header="VLESS" Click="serverAddVlessMenuItem_Click"/>
+                    <MenuItem x:Name="serverAddTrojanMenuItem" Header="Trojan" Click="serverAddTrojanMenuItem_Click"/>
+                </MenuItem>
+                <MenuItem x:Name="serverEditMenuItem" Header="编辑" Click="serverEditMenuItem_Click"/>
+                <MenuItem x:Name="serverCopyMenuItem" Header="复制" Click="serverCopyMenuItem_Click"/>
+                <MenuItem Header="粘贴"/>
+                <Separator></Separator>
+                <MenuItem Header="移动">
+                    <MenuItem Header="置顶"/>
+                    <MenuItem Header="上移"/>
+                    <MenuItem Header="下移"/>
+                    <MenuItem Header="置底"/>
+                </MenuItem>
+                <MenuItem Header="全选"/>
+                <Separator></Separator>
+                <MenuItem x:Name="deleteServerMenuItem" Header="删除" Click="deleteServerMenuItem_Click"/>
+            </MenuItem>
+            <MenuItem Header="订阅">
+                <MenuItem Header="管理"/>
+                <MenuItem Header="更新"/>
+            </MenuItem>
+            <MenuItem Header="模式">
+                <MenuItem Header="代理服务器" IsCheckable="True" IsChecked="True" IsEnabled="False"/>
+                <MenuItem Header="虚拟网卡" IsCheckable="True"/>
+            </MenuItem>
+            <MenuItem Header="配置">
+                <MenuItem Header="参数"/>
+                <MenuItem Header="路由">
+                    <MenuItem Header="排除局域网" IsCheckable="True"/>
+                    <MenuItem Header="排除中国大陆" IsCheckable="True"/>
+                    <MenuItem Header="自定义"/>
+                    <Separator/>
+                    <MenuItem Header="屏蔽广告" IsCheckable="True"/>
+                    <MenuItem Header="屏蔽Bittorrent" IsCheckable="True"/>
+                </MenuItem>
+            </MenuItem>
+            <MenuItem x:Name="aboutMenuItem" Header="关于" Click="aboutMenuItem_Click"/>
+            <MenuItem x:Name="exitMenuItem" Header="退出" Click="exitMenuItem_Click"/>
+        </Menu>
+        
+        <StatusBar DockPanel.Dock="Bottom">
+            <StatusBar.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                    </Grid>
+                </ItemsPanelTemplate>
+            </StatusBar.ItemsPanel>
+            <StatusBarItem Grid.Column="0">
+                <TextBlock Text="就绪。"></TextBlock>
+            </StatusBarItem>
+            <Separator Grid.Column="1"/>
+            <StatusBarItem Grid.Column="2"></StatusBarItem>
+            <Separator Grid.Column="3"/>
+            <StatusBarItem Grid.Column="4">
+                <TextBlock Text="暂不支持网速显示"/>
+            </StatusBarItem>
+        </StatusBar>
+
+        <DataGrid x:Name="serverDataGrid" ItemsSource="{Binding}" CanUserResizeRows="False" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False">
+            <DataGrid.Columns>
+                <DataGridCheckBoxColumn Header="启用" Binding="{Binding enabled}" IsReadOnly="False"/>
+                <DataGridTextColumn Header="协议" Binding="{Binding protocol}" IsReadOnly="True"/>
+                <DataGridTextColumn Header="名称" Binding="{Binding name}" IsReadOnly="True"/>
+                <DataGridTextColumn Header="地址" Binding="{Binding address}" IsReadOnly="True"/>
+                <DataGridTextColumn Header="端口" Binding="{Binding port}" IsReadOnly="True"/>
+                <DataGridTextColumn Header="传输层" Binding="{Binding transport}" IsReadOnly="True"/>
+                <DataGridTextColumn Header="安全层" Binding="{Binding security}" IsReadOnly="True"/>
+                <DataGridTextColumn Header="订阅组" Binding="{Binding subscribe}" IsReadOnly="True" Visibility="Visible"/>
+                <DataGridTextColumn Header="延迟" Binding="{Binding delay}" IsReadOnly="True" Visibility="Visible"/>
+            </DataGrid.Columns>
+            <DataGrid.ContextMenu>
+                <ContextMenu>
+                    <MenuItem x:Name="serverEditContextMenuItem" Header="编辑" Click="serverEditContextMenuItem_Click"/>
+                    <MenuItem x:Name="serverCopyContextMenuItem" Header="复制" Click="serverCopyContextMenuItem_Click"/>
+                    <MenuItem Header="粘贴"/>
+                    <Separator></Separator>
+                    <MenuItem Header="移动">
+                        <MenuItem Header="置顶"/>
+                        <MenuItem Header="上移"/>
+                        <MenuItem Header="下移"/>
+                        <MenuItem Header="置底"/>
+                    </MenuItem>
+                    <MenuItem Header="全选"/>
+                    <Separator></Separator>
+                    <MenuItem x:Name="deleteServerContextMenuItem" Header="删除" Click="deleteServerContextMenuItem_Click"/>
+                </ContextMenu>
+            </DataGrid.ContextMenu>
+        </DataGrid>
+    </DockPanel>
+</Window>
